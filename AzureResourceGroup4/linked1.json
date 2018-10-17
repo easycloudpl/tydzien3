@@ -60,20 +60,6 @@
       "metadata": {
         "description": "Admin password"
       }
-    },
-    "modulesUrl": {
-      "type": "string",
-      "metadata": {
-        "description": "URL for the DSC configuration module. NOTE: Can be a Github url(raw) to the zip file"
-      }
-    },
-    "configurationFunction": {
-      "type": "string",
-      "defaultValue": "ContosoWebsite.ps1\\ContosoWebsite",
-      "metadata": {
-        "description": "DSC configuration function to call"
-      }
-    }
   },
   "variables": {
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
@@ -83,7 +69,6 @@
     "nicName": "dscNIC",
     "imagePublisher": "MicrosoftWindowsServer",
     "imageOffer": "WindowsServer",
-    "vmExtensionName": "dscExtension",
     "location" : "[resourceGroup().location]",
     "asName" : "websvras"
   },
@@ -200,7 +185,6 @@
         "type": "DSC",
         "typeHandlerVersion": "2.8",
         "settings": {
-          "ModulesUrl": "[parameters('modulesUrl')]",
           "ConfigurationFunction": "[parameters('configurationFunction')]",
           "Properties": {
             "MachineName": "[concat(parameters('vmName'),copyIndex())]"
